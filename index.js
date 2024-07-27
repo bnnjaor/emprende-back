@@ -1,4 +1,6 @@
+require('dotenv').config()
 const http = require('http');
+
 
 function requestController(req,res){
     //logica de nuestra funcion
@@ -7,6 +9,8 @@ function requestController(req,res){
 
 const server = http.createServer(requestController)
 
-server.listen(3000, () => {
-    console.log('El server está escuchando en el puerto 3000')
+const PORT = process.env.PORT
+
+server.listen(PORT, function(){
+    console.log(`El server está escuchando en el puerto ${PORT}`)
 });
