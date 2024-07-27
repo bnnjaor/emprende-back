@@ -1,0 +1,11 @@
+{
+  "name": "emprende-fullstack",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "Benjamin Ormeño <benjaordev@gmail.com>",
+  "license": "MIT",
+  "private": false,
+  "devDependencies": {
+    "nodemon": "^3.1.4"
+  }
+}
