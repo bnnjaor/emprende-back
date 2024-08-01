@@ -1,0 +1,13 @@
+#create-task{
+    background: rgb(10, 106, 231);
+    border: none;
+    padding: 3px;
+    border-radius: 3px;
+    color: white;
+    cursor: pointer;
+}
+
+#create-task:hover {
+    opacity: .8;
+}
+
