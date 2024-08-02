@@ -4,7 +4,9 @@ const tasksContainer = document.querySelector('#tasks')
 const createEditBtn = document.querySelector("#create-task")
 const input = document.querySelector("#task-name")
 
-const baseBackendUrl = "http://localhost:4000/api"
+const baseBackendUrl = `${window.origin}/api`
+
+
 let TASK_TO_EDIT = null
 
 //Nutrir de funcionalidad al botón crear tarea
@@ -42,6 +44,7 @@ const getTasks = ()=>{
             const tasks = resJSON.data
             //Utilizamos un ciclo for para que por cada tarea que tengamos se muestre en el front
             for(const task of tasks){
+                console.log({task})
                 //Creamos una constante para que por cada tarea se haga una etiqueda p(parrafo) en el html
                 const taskParagraph = document.createElement('p')
                 //Creamos un boton para eleminar las tareas
@@ -53,7 +56,7 @@ const getTasks = ()=>{
                 deleteTaskBtn.setAttribute('id',task._id)
                 deleteTaskBtn.addEventListener('click', (e)=>{
                     
-                    const taskId = task.id
+                    const taskId = task._id
                     deleteTaskBtn.innerText = '...'
                     fetch(`${baseBackendUrl}/tasks/${taskId}`,{
                         method: 'DELETE',

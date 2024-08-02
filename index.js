@@ -85,7 +85,7 @@ app.delete("/api/tasks/:id", (req, res) => {
   const id = req.params.id;
   Task.findByIdAndDelete(id).then((deletedTask)=>{
     res.status(200).json({ok:true, data:deletedTask});
-  }).catch((err) => {res.status(400).json({ok:false, message: "Error al eleminar la tarea"})})
+  }).catch((err) => {res.status(400).json({ok:false, message: `Error al eleminar la tarea${err}`});});
 })
 
 //PONER A ESCUCHAR LA APP EN UN PUERTO
