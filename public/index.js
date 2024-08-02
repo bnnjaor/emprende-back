@@ -26,6 +26,7 @@ createEditBtn.addEventListener("click",() =>{
         getTasks()
         input.value = ''
         createEditBtn.innerText = "Crear Tarea"
+        TASK_TO_EDIT = null
         return res.json()
      })
      .then((resJSON)=>{
