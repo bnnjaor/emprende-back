@@ -4,6 +4,7 @@ const app = express();
 const PORT = process.env.PORT;
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
+const transporter = require("./helpers/mailer");
 
 //Conectar a MongoDB
 mongoose
@@ -22,11 +23,19 @@ const taskSchema = new Schema({
   // createdBy:
 });
 
+const userSchema = new Schema({
+  firstname: String,
+  lastname: String,
+  email: String,
+  login_code: String,
+});
+
 //Crear modelo de datos
 const Task = mongoose.model("Task", taskSchema, "Tasks");
+const User = mongoose.model("User", userSchema, "Users");
 
 //Middleware
-app.use(express.static("public"));
+app.use(express.static("public", { extensions: ["html", "css", "js"] }));
 app.use(express.json());
 
 //CONFIGURAR RUTAS
@@ -65,9 +74,8 @@ app.post("/api/tasks", (req, res) => {
 app.put("/api/tasks/:id", (req, res) => {
   const body = req.body;
   const id = req.params.id;
-  Task.findByIdAndUpdate(id,{
+  Task.findByIdAndUpdate(id, {
     name: body.text,
-    
   })
     .then((updatingTask) => {
       res.status(200).json({
@@ -77,17 +85,81 @@ app.put("/api/tasks/:id", (req, res) => {
       });
     })
     .catch((err) => {
-      res.status(400).json({ ok: false, message: `Error al editar la tarea ${err}`});
+      res
+        .status(400)
+        .json({ ok: false, message: `Error al editar la tarea ${err}` });
     });
 });
 
 app.delete("/api/tasks/:id", (req, res) => {
   const id = req.params.id;
-  Task.findByIdAndDelete(id).then((deletedTask)=>{
-    res.status(200).json({ok:true, data:deletedTask});
-  }).catch((err) => {res.status(400).json({ok:false, message: `Error al eleminar la tarea${err}`});});
-})
+  Task.findByIdAndDelete(id)
+    .then((deletedTask) => {
+      res.status(200).json({ ok: true, data: deletedTask });
+    })
+    .catch((err) => {
+      res
+        .status(400)
+        .json({ ok: false, message: `Error al eleminar la tarea${err}` });
+    });
+});
 
+app.post("/api/auth/login/:email/code", async (req, res) => {
+  const { email } = req.params;
+  const user = await User.findOne({ email });
+
+
+
+  if (!user) {
+    // await User.create({email, firstname: 'Benjamin', lastname: 'Ormeño'})
+    return res
+      .status(400)
+      .json({ ok: false, message: "No existe un usuario con ese correo" });
+  }
+
+  let code = ''
+
+  for(let index = 0; index <= 5; index++){
+    let character = Math.floor(Math.random() * 9)
+    code += character
+  }
+
+  console.log({code})
+
+  user.login_code = code
+  await user.save()
+
+  const result = await transporter.sendMail({
+    from: `Benjamin Ormeño ${process.env.EMAIL}`,
+    to: email,
+    subject: "Codigo de inicio de sesion: " + code,
+    body: "Este es tu codigo para iniciar sesion: ",
+  })
+  res.status(200).json({ ok: true, message: "codigo enviado con extio" });
+});
+
+app.post("/api/auth/login/:email", async (req, res) => {
+  const { email } = req.params;
+
+  const {code} = req.body
+
+  const user = await User.findOne({ email, login_code: code });
+
+
+
+  if (!user) {
+    // await User.create({email, firstname: 'Benjamin', lastname: 'Ormeño'})
+    return res
+      .status(400)
+      .json({ ok: false, message: "Credenciales invalidas" });
+  }
+  
+  user.login_code = code
+  await user.save()
+
+  
+  res.status(200).json({ ok: true, message: "Inicio de sesion exitoso" });
+});
 //PONER A ESCUCHAR LA APP EN UN PUERTO
 app.listen(PORT, (req, res) => {
   console.log("Servidor escuchando en el puerto: " + PORT);

@@ -1,4 +1,4 @@
-#create-task{
+.create-tasks{
     background: rgb(10, 106, 231);
     border: none;
     padding: 3px;
@@ -7,7 +7,32 @@
     cursor: pointer;
 }
 
-#create-task:hover {
+.create-tasks2{
+    background: rgb(65, 167, 17);
+    border: none;
+    padding: 3px;
+    border-radius: 3px;
+    color: white;
+    cursor: pointer;
+}
+
+
+.clear-button{
+    background: rgb(231, 29, 29);
+    border: none;
+    padding: 3px;
+    border-radius: 3px;
+    color: white;
+    cursor: pointer;
+}
+
+#create-task,.clear-button:hover {
     opacity: .8;
 }
 
+input{
+    margin: 5px;
+    padding: 3px;
+    border-radius: 3px;
+    border: 1px solid gray;
+}

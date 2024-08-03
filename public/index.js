@@ -6,6 +6,15 @@ const input = document.querySelector("#task-name")
 
 const baseBackendUrl = `${window.origin}/api`
 
+const greenColor = ()=>{
+    createEditBtn.classList.add('create-tasks2')
+    createEditBtn.classList.remove('create-tasks')
+}
+
+const blueColor = ()=>{
+    createEditBtn.classList.add('create-tasks')
+    createEditBtn.classList.remove('create-tasks2')
+}
 
 let TASK_TO_EDIT = null
 
@@ -15,6 +24,9 @@ createEditBtn.addEventListener("click",() =>{
     const creating = !TASK_TO_EDIT
     const path = creating ? 'tasks': `tasks/${TASK_TO_EDIT._id}`
     const method = creating ? 'POST' : 'PUT'
+    
+    
+    
     fetch(`${baseBackendUrl}/${path}`, {
         method,
         headers: {
@@ -26,6 +38,7 @@ createEditBtn.addEventListener("click",() =>{
         getTasks()
         input.value = ''
         createEditBtn.innerText = "Crear Tarea"
+        blueColor()
         TASK_TO_EDIT = null
         return res.json()
      })
@@ -51,6 +64,7 @@ const getTasks = ()=>{
                 //Creamos un boton para eleminar las tareas
                 const deleteTaskBtn = document.createElement('button')
                 deleteTaskBtn.innerText = "Borrar"
+                deleteTaskBtn.classList.add("clear-button")
                 const taskContainerDiv = document.createElement('div')
                 //Le agregamos 
                 taskParagraph.innerText = task.name
@@ -70,6 +84,7 @@ const getTasks = ()=>{
                 taskParagraph.addEventListener('click',(e)=>{
                     input.value = task.name
                     createEditBtn.innerText = "Editar Tarea"
+                    greenColor()
                     TASK_TO_EDIT = task
                 })
                 //Agregamos el párrafo al contenedor de tareas en el HTML
