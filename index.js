@@ -5,6 +5,7 @@ const PORT = process.env.PORT;
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 const transporter = require("./helpers/mailer");
+const jwt = require("jsonwebtoken")
 
 //Conectar a MongoDB
 mongoose
@@ -157,8 +158,18 @@ app.post("/api/auth/login/:email", async (req, res) => {
   user.login_code = code
   await user.save()
 
+  const tokenPayload =  {
+    _id: user._id,
+    firstname: user.firstname,
+    email: user.email
+
+  }
+
+  const token = jwt.sign(tokenPayload,process.env.JWT_SECRET_KEY)
+  console.log({token})
+  res.cookie('jwt', token)
   
-  res.status(200).json({ ok: true, message: "Inicio de sesion exitoso" });
+  res.status(200).json({ ok: true, data: tokenPayload,message: "Inicio de sesion exitoso" });
 });
 //PONER A ESCUCHAR LA APP EN UN PUERTO
 app.listen(PORT, (req, res) => {
