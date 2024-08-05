@@ -7,18 +7,34 @@ const baseBackendUrl = `${window.origin}/api`;
 
 codeBtn.addEventListener("click", async () => {
   console.log("pidiendo codigo");
-  const res = await fetch(
-    `${baseBackendUrl}/auth/login/${inputEmail.value}/code`,
-    {
-      method: "POST",
+  try {
+    if(!inputEmail.value) {
+      Swal.fire("Ups!", "Debes ingresar un correo", "info")
+      return
     }
-  );
-  const resJSON = await res.json();
+    
+
+    const res = await fetch(
+      `${baseBackendUrl}/auth/login/${inputEmail.value}/code`,
+      {
+        method: "POST",
+      }
+    );
+    const resJSON = await res.json();
+  } catch (error) {
+    console.log({error})
+  }
+  
 });
 
 form.addEventListener("submit", async (e) => {
   e.preventDefault();
   console.log("Intentando iniciar sesion");
+  if(!inputEmail.value || !inputCode.value) {
+    Swal.fire("Ups!", "Debes ingresar un correo", "info")
+    return
+  }
+  
   const res = await fetch(`${baseBackendUrl}/auth/login/${inputEmail.value}`, {
     method: "POST",
     headers: {"Content-Type": "application/json"},
