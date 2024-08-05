@@ -14,7 +14,6 @@ codeBtn.addEventListener("click", async () => {
     }
   );
   const resJSON = await res.json();
-  console.log(resJSON);
 });
 
 form.addEventListener("submit", async (e) => {
@@ -26,5 +25,5 @@ form.addEventListener("submit", async (e) => {
     body: JSON.stringify({ code: inputCode.value }),
   });
   const resJSON = await res.json();
-  console.log(resJSON);
+  window.location.href = '/'
 });
