@@ -1,5 +1,7 @@
 const jwt = require('jsonwebtoken');
 
+//Middleware para verificar si el usuario tiene un token con nuestra llave secreta
+
 const jwtValidation = (req, res, next) => {
     try {
       const token = req.cookies.jwt;
