@@ -11,10 +11,11 @@ const getCode = async (req, res) => {
     //Si no hay usuarios retornamos un status 400
     if (!user) {
       //creamos un usuario con el email ingresado
-      await User.create({email})
+      const newUser = await User.create({email})
       return res
         .status(400)
         .json({ ok: false, message: "No existe un usuario con ese correo" });
+      user = newUser;
     } 
     
     //creamos una variable code
