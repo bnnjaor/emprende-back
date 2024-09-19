@@ -1,7 +1,8 @@
 const { Task } = require("../models/task");
 
-
+//Creamos una funcion para obtener las tareas de la BBDD
 const getAll = (req, res) => {
+  //utilizamos find con el schema que creamos
   Task.find()
     .then((tasks) => {
       res.status(200).json({ ok: true, data: tasks });
@@ -14,8 +15,11 @@ const getAll = (req, res) => {
     });
 };
 
+//Creamos una funcion para crear tareas y guardarlas en la BBDD
 const create = (req, res) => {
+  //Guardamos la tarea en la variable body
   const body = req.body;
+
   Task.create({
     name: body.text,
     done: false,

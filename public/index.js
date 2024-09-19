@@ -1,7 +1,9 @@
+// Obtenemos elementos del HTML
 const tasksContainer = document.querySelector("#tasks");
 const createEditBtn = document.querySelector("#create-task");
 const input = document.querySelector("#task-name");
 
+// creamos esta variable para que el server en el cual hosteamos la app no se rompa
 const baseBackendUrl = `${window.origin}/api`;
 
 const greenColor = () => {
@@ -18,11 +20,12 @@ let TASK_TO_EDIT = null;
 
 //Nutrir de funcionalidad al botón crear tarea
 createEditBtn.addEventListener("click", () => {
-  //Hacemos una petición de tipo POST
+  //Dependiendo de la variable TASK TO EDIT '' | undefined se define si sera una peticion de POST O PUT 
   const creating = !TASK_TO_EDIT;
   const path = creating ? "tasks" : `tasks/${TASK_TO_EDIT._id}`;
   const method = creating ? "POST" : "PUT";
 
+  //Hacemos una petición de tipo POST a la ruta especificada
   fetch(`${baseBackendUrl}/${path}`, {
     method,
     headers: {
@@ -30,6 +33,7 @@ createEditBtn.addEventListener("click", () => {
     },
     body: JSON.stringify({ text: input.value }),
   }).then((res) => {
+    //Recargamos las tareas para que se vean actualizadas en el front
     getTasks();
     input.value = "";
     createEditBtn.innerText = "Crear Tarea";
@@ -41,7 +45,9 @@ createEditBtn.addEventListener("click", () => {
 
 //Función para obtener las tareas del backend
 const getTasks = () => {
+  //Limpiamos el contenido del contenedor de tareas
   tasksContainer.innerHTML = null;
+  //Realizamos una peticion a nuestra ruta
   fetch(`${baseBackendUrl}/tasks`)
     .then((res) => res.json())
     .then((resJSON) => {
