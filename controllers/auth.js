@@ -10,10 +10,13 @@ const getCode = async (req, res) => {
     const user = await User.findOne({ email });
     //Si no hay usuarios retornamos un status 400
     if (!user) {
+      //creamos un usuario con el email ingresado
+      await User.create({email})
       return res
         .status(400)
         .json({ ok: false, message: "No existe un usuario con ese correo" });
-    }
+    } 
+    
     //creamos una variable code
     let code = "";
     //Ciclo for para que code tenga 6 digitos
@@ -21,7 +24,8 @@ const getCode = async (req, res) => {
       let character = Math.floor(Math.random() * 9);
       code += character;
     }
-  
+    
+
     //Le agregamos code como una propiedad al user
   
     user.login_code = code;
@@ -54,6 +58,8 @@ const login = async (req, res) => {
   
     user.login_code = code;
     await user.save();
+    console.log({user})
+
   
     //Generamos un tokenPayload con las credenciales del usuario
 
