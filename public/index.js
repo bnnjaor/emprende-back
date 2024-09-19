@@ -20,12 +20,10 @@ let TASK_TO_EDIT = null;
 
 //Nutrir de funcionalidad al botón crear tarea
 createEditBtn.addEventListener("click", () => {
-  //Dependiendo de la variable TASK TO EDIT '' | undefined se define si sera una peticion de POST O PUT 
   const creating = !TASK_TO_EDIT;
   const path = creating ? "tasks" : `tasks/${TASK_TO_EDIT._id}`;
   const method = creating ? "POST" : "PUT";
 
-  //Hacemos una petición de tipo POST a la ruta especificada
   fetch(`${baseBackendUrl}/${path}`, {
     method,
     headers: {
@@ -33,49 +31,53 @@ createEditBtn.addEventListener("click", () => {
     },
     body: JSON.stringify({ text: input.value }),
   }).then((res) => {
-    //Recargamos las tareas para que se vean actualizadas en el front
-    getTasks();
+    getTasks(); // Esto actualizará la lista de tareas
     input.value = "";
     createEditBtn.innerText = "Crear Tarea";
     blueColor();
     TASK_TO_EDIT = null;
-    return res.json();
   });
 });
 
-//Función para obtener las tareas del backend
+// Función para obtener las tareas del backend
 const getTasks = () => {
-  //Limpiamos el contenido del contenedor de tareas
-  tasksContainer.innerHTML = null;
-  //Realizamos una peticion a nuestra ruta
   fetch(`${baseBackendUrl}/tasks`)
     .then((res) => res.json())
     .then((resJSON) => {
-      //Almacenamos las tareas en una constante
       const tasks = resJSON.data;
 
-      
-      //Utilizamos un ciclo for para que por cada tarea que tengamos se muestre en el front
+      // Limpiar el contenedor de tareas antes de agregar las tareas
+      tasksContainer.innerHTML = "";
+      //Ciclo for para que por cada tarea haga lo siguiente
       for (const task of tasks) {
-        //Creamos una constante para que por cada tarea se haga una etiqueda p(parrafo) en el html
+        //crear elemento div para mostrar tarea en el html
         const taskParagraph = document.createElement("div");
+        //se le agrega estas clases para el hover de editar es algo visual nada mas
         taskParagraph.classList.add("task");
         taskParagraph.classList.add("tooltip");
-
-        //Creamos un boton para eleminar las tareas y un mensaje para editarlas
+        //se crea el boton para poder eleminar las tareas
         const deleteTaskBtn = document.createElement("button");
         deleteTaskBtn.innerText = "Borrar";
         deleteTaskBtn.classList.add("clear-button");
+        //se crea este elemento para hover de editar es algo visual nada mas
         const editTaskBtn = document.createElement("div");
         editTaskBtn.innerText = "Editar";
         editTaskBtn.classList.add("message");
+
+        //se crea un contenedor para cada tarea asi poder borrar la tarea que se indique
         const taskContainerDiv = document.createElement("div");
         taskContainerDiv.classList.add("task-container");
-        //Le agregamos
+
+        //Se le agrega el texto a la tarea
         taskParagraph.innerText = task.name;
+        //se le asigna un id a cada tarea para cuando borremos no se borren todas y se borre solo la indicada
         deleteTaskBtn.setAttribute("id", task._id);
         deleteTaskBtn.addEventListener("click", (e) => {
           const taskId = task._id;
+          input.value = "";
+          createEditBtn.innerText = "Crear Tarea";
+          blueColor();
+          TASK_TO_EDIT = null;
           deleteTaskBtn.innerText = "...";
           fetch(`${baseBackendUrl}/tasks/${taskId}`, {
             method: "DELETE",
@@ -84,21 +86,32 @@ const getTasks = () => {
             taskDiv.remove();
           });
         });
+
         taskParagraph.addEventListener("click", (e) => {
+          // Elimina la clase 'editing' de la tarea previamente editada si existe
+          if (TASK_TO_EDIT) {
+            document.querySelector(`.task[data-id="${TASK_TO_EDIT._id}"]`)?.classList.remove("editing");
+          }
+
+          // Marca la tarea actual como la que está siendo editada
           input.value = task.name;
           createEditBtn.innerText = "Editar Tarea";
           greenColor();
           TASK_TO_EDIT = task;
+
+          // Aplica la clase 'editing' a la tarea actual
+          taskParagraph.classList.add("editing");
+          taskParagraph.setAttribute("data-id", task._id); // Añade un atributo data-id para selección futura
         });
-        //Agregamos el párrafo al contenedor de tareas en el HTML
+
         taskContainerDiv.appendChild(taskParagraph);
-        //Agregamos el botón de eliminar al párrafo
         taskContainerDiv.appendChild(deleteTaskBtn);
         tasksContainer.appendChild(taskContainerDiv);
-        //Agregamos el mensaje de edición al párrafo
-        taskParagraph.appendChild(editTaskBtn)
+        taskParagraph.appendChild(editTaskBtn);
       }
     });
 };
+
+
 
 getTasks();

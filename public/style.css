@@ -193,6 +193,12 @@ input:focus{
     
 }
 
+/* CSS para resaltar la tarea en edición */
+.task.editing {
+    color: rgb(42, 93, 18);
+}
+
+
 
 
 
