@@ -47,15 +47,24 @@ const getTasks = () => {
     .then((resJSON) => {
       //Almacenamos las tareas en una constante
       const tasks = resJSON.data;
+
+      
       //Utilizamos un ciclo for para que por cada tarea que tengamos se muestre en el front
       for (const task of tasks) {
         //Creamos una constante para que por cada tarea se haga una etiqueda p(parrafo) en el html
-        const taskParagraph = document.createElement("p");
-        //Creamos un boton para eleminar las tareas
+        const taskParagraph = document.createElement("div");
+        taskParagraph.classList.add("task");
+        taskParagraph.classList.add("tooltip");
+
+        //Creamos un boton para eleminar las tareas y un mensaje para editarlas
         const deleteTaskBtn = document.createElement("button");
         deleteTaskBtn.innerText = "Borrar";
         deleteTaskBtn.classList.add("clear-button");
+        const editTaskBtn = document.createElement("div");
+        editTaskBtn.innerText = "Editar";
+        editTaskBtn.classList.add("message");
         const taskContainerDiv = document.createElement("div");
+        taskContainerDiv.classList.add("task-container");
         //Le agregamos
         taskParagraph.innerText = task.name;
         deleteTaskBtn.setAttribute("id", task._id);
@@ -77,9 +86,11 @@ const getTasks = () => {
         });
         //Agregamos el párrafo al contenedor de tareas en el HTML
         taskContainerDiv.appendChild(taskParagraph);
-        //Agregamos el botón de eleminación al párrafo
+        //Agregamos el botón de eliminar al párrafo
         taskContainerDiv.appendChild(deleteTaskBtn);
         tasksContainer.appendChild(taskContainerDiv);
+        //Agregamos el mensaje de edición al párrafo
+        taskParagraph.appendChild(editTaskBtn)
       }
     });
 };

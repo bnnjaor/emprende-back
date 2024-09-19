@@ -6,18 +6,33 @@
     <title>Login Page</title>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.12.4/dist/sweetalert2.all.min.js" integrity="sha256-rTq0xiLu1Njw5mB3ky3DZhpI5WhYdkNlQbGXUc0Si6E=" crossorigin="anonymous"></script>
     <script defer src="./login.js"></script>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <h1>Inicio de Sesion</h1>
-    <form id="formulario">
-        <input type="text" placeholder="Correo Electronico" id="email">
-        <input type="text"  placeholder="Codigo" id="code">
-        <div>
-            <button type="submit" class="create-tasks2" >Iniciar Sesion</button>
-            <button type="button" id="codeBtn" class="create-tasks2">Quiero un Codigo</button>
+    <section class="container">
+
+        <div class="title-container">
+            <h1>Inicio de Sesion</h1>
 
         </div>
 
-    </form>
+        
+
+            <form id="formulario">
+                <div class="form-container">
+
+                    <input type="text" placeholder="Correo Electronico" id="email">
+                    <input type="text"  placeholder="Codigo" id="code">
+                </div>
+                <div class="login-container">
+                    
+                    <button type="submit" class="create-tasks" >Iniciar Sesion</button>
+                    <button type="button" id="codeBtn" class="create-tasks">Quiero un Codigo</button>
+                    
+                </div>
+                
+            </form>
+        
+    </section>
 </body>
 </html>

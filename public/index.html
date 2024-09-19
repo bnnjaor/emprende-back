@@ -8,14 +8,27 @@
     <script defer src="./index.js"></script>
 </head>
 <body>
-    <h1>App de Tareas</h1>
-    <p>
-        <a href="/login">Iniciar Sesion</a>
-    </p>
-    <input type="text"  id="task-name">
-    <button id="create-task" class="create-tasks" >Crear Tarea</button>
-    <div id="tasks">
+    <section class="container">
+
+        <div class="title-container">
+            <h1>App de Tareas</h1>
+
+        </div>
         
-    </div>
+       <div class="form-container">
+           <input type="text"  id="task-name" placeholder="Ingresa una Tarea...">
+           <button id="create-task" class="create-tasks" >Crear Tarea</button>
+        </div>
+        <div id="tasks">
+            
+        </div>
+        <div class="login-container">
+            <p>
+                <a class="login-text" href="/login">Iniciar Sesion</a>
+            </p>
+
+        </div>
+    </section>
+    
 </body>
 </html>

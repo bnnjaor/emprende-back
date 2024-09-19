@@ -3,7 +3,6 @@ const express = require("express");
 const app = express();
 const dbConnect = require('./db/connect')
 
-const transporter = require("./helpers/mailer");
 const cookieParser = require("cookie-parser");
 const tasksRoutes = require("./routes/task");
 const authRoutes = require("./routes/auth");
