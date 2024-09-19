@@ -1,205 +1,187 @@
-*{
-    padding: 0;
-    margin: 0;
-    box-sizing: border-box;
-    text-decoration: none;
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  text-decoration: none;
 }
 
-body{
-    height: 100vh;
-    width: 100%;
-    display: grid ;
-    place-content: center;
-    background-color: #ccc;
+body {
+  height: 100vh;
+  width: 100%;
+  display: grid;
+  place-content: center;
+  background-color: #ccc;
 }
 
-.container{
-    width: 600px;
+.container {
+  width: 600px;
 
-    background-color: white;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 10px 10px 10px rgba(0,0,0,0.1)
-    
+  background-color: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.1);
 }
 
-.title-container{
-    
-    text-align: center;
-    font-size: 30px;
-    margin-bottom: 20px;
+.title-container {
+  text-align: center;
+  font-size: 30px;
+  margin-bottom: 20px;
 }
 
-.form-container{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin: 10px 0px 10px 0px;
+.form-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 10px 0px 10px 0px;
 }
 
-.task-container{
-    display: flex;
-    width: 80%;
-    justify-content: space-between;
-    margin: 5px 0px 5px 0px;
-
+.task-container {
+  display: flex;
+  width: 80%;
+  justify-content: space-between;
+  margin: 5px 0px 5px 0px;
 }
 
-.login-container{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    
+.login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
 }
 
-.create-tasks{
-    background: white;
-    border: darkslateblue solid 1px;
-    padding: 4px;
-    border-radius: 5px;
-    color: darkslateblue;
-    cursor: pointer;
-    transition:.3s all ;
-    font-size: .8rem;
-    margin: 2px;
-
+.create-tasks {
+  background: white;
+  border: darkslateblue solid 1px;
+  padding: 4px;
+  border-radius: 5px;
+  color: darkslateblue;
+  cursor: pointer;
+  transition: 0.3s all;
+  font-size: 0.8rem;
+  margin: 2px;
 }
 
-.create-tasks:hover{
-    color: white;
-    background-color: rgb(74, 62, 147);
-    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
-    cursor: pointer;
-    transition:.3s all ;
-
+.create-tasks:hover {
+  color: white;
+  background-color: rgb(74, 62, 147);
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+  transition: 0.3s all;
 }
 
-.create-tasks2{
-    background: white;
-    border: rgb(42, 93, 18) solid 1px;
-    padding: 3px;
-    border-radius: 3px;
-    color: rgb(42, 93, 18);
-    cursor: pointer;
-    transition:.3s all ;
-
+.create-tasks2 {
+  background: white;
+  border: rgb(42, 93, 18) solid 1px;
+  padding: 3px;
+  border-radius: 3px;
+  color: rgb(42, 93, 18);
+  cursor: pointer;
+  transition: 0.3s all;
 }
 
-.create-tasks2:hover{
-    background: rgb(42, 93, 18);
-    color: white;
-    transition:.3s all ;
-    cursor: pointer;
-    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+.create-tasks2:hover {
+  background: rgb(42, 93, 18);
+  color: white;
+  transition: 0.3s all;
+  cursor: pointer;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
 }
 
-
-.clear-button{
-    background: white;
-    border: rgb(231, 29, 29) solid 1px;
-    padding: 3px;
-    border-radius: 3px;
-    color: rgb(231, 29, 29);
-    cursor: pointer;
-    transition:.3s all ;
-
+.clear-button {
+  background: white;
+  border: rgb(231, 29, 29) solid 1px;
+  padding: 3px;
+  border-radius: 3px;
+  color: rgb(231, 29, 29);
+  cursor: pointer;
+  transition: 0.3s all;
 }
 
-.clear-button:hover{
-    background: rgb(231, 29, 29);
-    color: white;
-    transition:.3s all ;
-    cursor: pointer;
-    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2)
+.clear-button:hover {
+  background: rgb(231, 29, 29);
+  color: white;
+  transition: 0.3s all;
+  cursor: pointer;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
 }
 
-
-
-input{
-    margin: 5px;
-    padding: 5px;
-    border-radius: 5px;
-    border: 1px solid rgb(37, 80, 89);
-    
+input {
+  margin: 5px;
+  padding: 5px;
+  border-radius: 5px;
+  border: 1px solid rgb(37, 80, 89);
 }
 
-input:focus{
-    outline: none;
-    box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.2);
-    
+input:focus {
+  outline: none;
+  box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.2);
 }
 
-
-
-#tasks{
-    display: flex;
-    flex-direction: column;
-    justify-content: center ;
-    align-items: center;
-    margin-bottom: 10px;
-    width: 100%;
-
+#tasks {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 10px;
+  width: 100%;
 }
 
-.login-text{
-    color: darkslateblue;
-    background-color: white;
-    border: darkslateblue solid 1px;
-    border-radius: 5px;
-    padding: 3px;
-    font-size: .8rem;
-    transition:.3s all ;
-    
-    
+.login-text {
+  color: darkslateblue;
+  background-color: white;
+  border: darkslateblue solid 1px;
+  border-radius: 5px;
+  padding: 3px;
+  font-size: 0.8rem;
+  transition: 0.3s all;
 }
 
-.login-text:hover{
-    color: white;
-    background-color: rgb(74, 62, 147);
-    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
-    cursor: pointer;
-    transition:.3s all ;
+.login-text:hover {
+  color: white;
+  background-color: rgb(74, 62, 147);
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+  transition: 0.3s all;
 }
 
 .task {
-    width: 80%;
-    position: relative;
-    display: inline-block;
-    cursor: pointer;
-    word-wrap: break-word;
+  width: 80%;
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+  word-wrap: break-word;
 }
 
 .tooltip .message {
-    visibility: hidden;
-   
-    background-color: #093c18;
-    color: #fff;
-    text-align: center;
-    border-radius: 5px;
-    padding: 3px ;
-    position: absolute;
-    z-index: 1;
-    bottom: -50%; 
-    left: 20%;
-    margin-left: -60px;
-    opacity: 0;
-    transition: opacity 0.3s;
-    font-size: .7rem;
+  visibility: hidden;
+
+  background-color: #093c18;
+  color: #fff;
+  text-align: center;
+  border-radius: 5px;
+  padding: 3px;
+  position: absolute;
+  z-index: 1;
+  bottom: -50%;
+  left: 20%;
+  margin-left: -60px;
+  opacity: 0;
+  transition: opacity 0.3s;
+  font-size: 0.7rem;
 }
 
 .tooltip:hover .message {
-    visibility: visible;
-    opacity: .5;
-    
+  visibility: visible;
+  opacity: 0.5;
 }
 
 /* CSS para resaltar la tarea en edición */
 .task.editing {
-    color: rgb(42, 93, 18);
+  color: rgb(42, 93, 18);
 }
 
-
-
-
-
-
+#login-message {
+  margin-top: 20px;
+  color: red;
+  font-size: .7rem;
+}

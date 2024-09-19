@@ -2,6 +2,7 @@
 const tasksContainer = document.querySelector("#tasks");
 const createEditBtn = document.querySelector("#create-task");
 const input = document.querySelector("#task-name");
+const login_message = document.querySelector("#login-message")
 
 // creamos esta variable para que el server en el cual hosteamos la app no se rompa
 const baseBackendUrl = `${window.origin}/api`;
@@ -109,7 +110,11 @@ const getTasks = () => {
         tasksContainer.appendChild(taskContainerDiv);
         taskParagraph.appendChild(editTaskBtn);
       }
-    });
+    })
+    .catch((error)=>{
+      const message = "Debes iniciar Sesion para ver las tareas"
+      login_message.innerText = message
+    })
 };
 
 
