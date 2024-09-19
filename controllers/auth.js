@@ -12,10 +12,11 @@ const getCode = async (req, res) => {
     if (!user) {
       //creamos un usuario con el email ingresado
       const newUser = await User.create({email})
+      user = newUser;
       return res
         .status(400)
         .json({ ok: false, message: "No existe un usuario con ese correo" });
-      user = newUser;
+      
     } 
     
     //creamos una variable code
